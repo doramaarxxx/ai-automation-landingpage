@@ -1,4 +1,4 @@
-import { Calendar, Mail, Phone } from 'lucide-react';
+import { Calendar, Mail } from 'lucide-react';
 import InquiryForm from './InquiryForm';
 
 export default function ContactSection() {
@@ -46,19 +46,6 @@ export default function ContactSection() {
               </a>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <Phone className="w-10 h-10 text-slate-600 mb-4" />
-              <h4 className="font-semibold text-slate-900 mb-2">전화 문의</h4>
-              <p className="text-sm text-slate-600 leading-relaxed mb-2">
-                평일 오전 9시 ~ 오후 6시
-              </p>
-              <a
-                href="tel:02-1234-5678"
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-              >
-                02-1234-5678
-              </a>
-            </div>
           </div>
         </div>
       </div>
