@@ -39,10 +39,10 @@ export default function ContactSection() {
                 빠른 상담을 원하시면 직접 이메일로 문의하세요
               </p>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:maardoramaar@gmail.com"
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
-                contact@example.com
+                maardoramaar@gmail.com
               </a>
             </div>
 
