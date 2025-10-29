@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { submitInquiry, type InquiryData } from '../lib/supabase';
+
+interface InquiryData {
+  name: string;
+  company: string;
+  position: string;
+  phone: string;
+  email: string;
+  message: string;
+}
 
 export default function InquiryForm() {
   const [formData, setFormData] = useState<InquiryData>({
@@ -21,7 +29,10 @@ export default function InquiryForm() {
     setErrorMessage('');
 
     try {
-      await submitInquiry(formData);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      console.log('Form submitted:', formData);
+
       setStatus('success');
       setFormData({
         name: '',
