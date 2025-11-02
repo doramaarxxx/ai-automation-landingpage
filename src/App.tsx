@@ -6,10 +6,12 @@ import ComparisonSection from './components/ComparisonSection';
 import SuccessSection from './components/SuccessSection';
 import ContactSection from './components/ContactSection';
 import MeetingBookingPanel from './components/MeetingBookingPanel';
+import AuthModal from './components/AuthModal';
 
 function App() {
   const contactRef = useRef<HTMLDivElement>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -23,6 +25,18 @@ function App() {
     setIsBookingOpen(false);
   };
 
+  const openAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setIsAuthModalOpen(false);
+  };
+
+  const handleAuthSuccess = () => {
+    setIsAuthModalOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Hero onCTAClick={openBooking} />
@@ -34,7 +48,17 @@ function App() {
         <ContactSection onBookingClick={openBooking} />
       </div>
 
-      <MeetingBookingPanel isOpen={isBookingOpen} onClose={closeBooking} />
+      <MeetingBookingPanel
+        isOpen={isBookingOpen}
+        onClose={closeBooking}
+        onAuthRequired={openAuthModal}
+      />
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={closeAuthModal}
+        onSuccess={handleAuthSuccess}
+      />
 
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">

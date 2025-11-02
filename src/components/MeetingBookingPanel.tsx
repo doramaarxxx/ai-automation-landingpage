@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { X, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 interface MeetingBookingPanelProps {
   isOpen: boolean;
   onClose: () => void;
+  onAuthRequired: () => void;
 }
 
-export default function MeetingBookingPanel({ isOpen, onClose }: MeetingBookingPanelProps) {
+export default function MeetingBookingPanel({ isOpen, onClose, onAuthRequired }: MeetingBookingPanelProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -191,7 +193,17 @@ export default function MeetingBookingPanel({ isOpen, onClose }: MeetingBookingP
                   {selectedDate} {selectedTime}
                 </div>
               </div>
-              <button className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50">
+              <button
+                onClick={async () => {
+                  const { data: { user } } = await supabase.auth.getUser();
+                  if (!user) {
+                    onAuthRequired();
+                  } else {
+                    console.log('Booking confirmed for:', { user, selectedDate, selectedTime });
+                  }
+                }}
+                className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+              >
                 예약 확정하기
               </button>
             </div>
