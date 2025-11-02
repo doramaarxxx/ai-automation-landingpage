@@ -1,21 +1,31 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Hero from './components/Hero';
 import ProblemSection from './components/ProblemSection';
 import SolutionSection from './components/SolutionSection';
 import ComparisonSection from './components/ComparisonSection';
 import SuccessSection from './components/SuccessSection';
 import ContactSection from './components/ContactSection';
+import MeetingBookingPanel from './components/MeetingBookingPanel';
 
 function App() {
   const contactRef = useRef<HTMLDivElement>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const openBooking = () => {
+    setIsBookingOpen(true);
+  };
+
+  const closeBooking = () => {
+    setIsBookingOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      <Hero onCTAClick={scrollToContact} />
+      <Hero onCTAClick={openBooking} />
       <ProblemSection onCTAClick={scrollToContact} />
       <SolutionSection />
       <ComparisonSection />
@@ -23,6 +33,8 @@ function App() {
       <div ref={contactRef}>
         <ContactSection />
       </div>
+
+      <MeetingBookingPanel isOpen={isBookingOpen} onClose={closeBooking} />
 
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
