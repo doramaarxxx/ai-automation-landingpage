@@ -31,7 +31,7 @@ function App() {
       <ComparisonSection />
       <SuccessSection />
       <div ref={contactRef}>
-        <ContactSection />
+        <ContactSection onBookingClick={openBooking} />
       </div>
 
       <MeetingBookingPanel isOpen={isBookingOpen} onClose={closeBooking} />

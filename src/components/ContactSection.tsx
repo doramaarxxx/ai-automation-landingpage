@@ -1,7 +1,11 @@
 import { Calendar, Mail } from 'lucide-react';
 import InquiryForm from './InquiryForm';
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  onBookingClick: () => void;
+}
+
+export default function ContactSection({ onBookingClick }: ContactSectionProps) {
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -26,10 +30,16 @@ export default function ContactSection() {
             <div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 rounded-xl p-6">
               <Calendar className="w-10 h-10 text-blue-600 mb-4" />
               <h4 className="font-semibold text-slate-900 mb-2">진단 미팅 안내</h4>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed mb-4">
                 비대면 화상 미팅으로 진행되며, 30분 내외로 진행됩니다.
                 담당자가 연락드려 일정을 조율해드립니다.
               </p>
+              <button
+                onClick={onBookingClick}
+                className="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+              >
+                일정 바로 예약하기
+              </button>
             </div>
 
             <div className="bg-white border border-slate-200 rounded-xl p-6">
