@@ -7,11 +7,14 @@ import SuccessSection from './components/SuccessSection';
 import ContactSection from './components/ContactSection';
 import MeetingBookingPanel from './components/MeetingBookingPanel';
 import AuthModal from './components/AuthModal';
+import Header from './components/Header';
+import SurveyPage from './components/SurveyPage';
 
 function App() {
   const contactRef = useRef<HTMLDivElement>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isSurveyOpen, setIsSurveyOpen] = useState(false);
 
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -37,9 +40,20 @@ function App() {
     setIsAuthModalOpen(false);
   };
 
+  const openSurvey = () => {
+    setIsSurveyOpen(true);
+  };
+
+  const closeSurvey = () => {
+    setIsSurveyOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      <Hero onCTAClick={openBooking} />
+      <Header onSurveyClick={openSurvey} />
+      <div className="pt-16">
+        <Hero onCTAClick={openBooking} />
+      </div>
       <ProblemSection onCTAClick={scrollToContact} />
       <SolutionSection />
       <ComparisonSection />
@@ -59,6 +73,8 @@ function App() {
         onClose={closeAuthModal}
         onSuccess={handleAuthSuccess}
       />
+
+      <SurveyPage isOpen={isSurveyOpen} onClose={closeSurvey} />
 
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
