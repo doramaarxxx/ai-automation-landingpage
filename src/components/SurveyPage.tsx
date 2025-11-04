@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { X, CheckSquare, Square } from 'lucide-react';
+import { X, CheckSquare, Square, CheckCircle, AlertCircle } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 interface SurveyPageProps {
   isOpen: boolean;
@@ -21,6 +22,8 @@ export default function SurveyPage({ isOpen, onClose }: SurveyPageProps) {
   const [q6, setQ6] = useState('');
   const [q7, setQ7] = useState('');
   const [q8, setQ8] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const toggleCheckbox = (value: string, list: string[], setter: (val: string[]) => void) => {
     if (list.includes(value)) {
@@ -30,18 +33,39 @@ export default function SurveyPage({ isOpen, onClose }: SurveyPageProps) {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Survey submitted:', {
-      q1: [...q1, q1Other].filter(Boolean),
-      q2: { options: [...q2, q2Other].filter(Boolean), example: q2Example },
-      q3: { option: q3, example: q3Example },
-      q4,
-      q5: { options: [...q5, q5Other].filter(Boolean), example: q5Example },
-      q6,
-      q7,
-      q8,
-    });
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const { error } = await supabase
+        .from('survey_responses')
+        .insert([{
+          q1_reasons: q1,
+          q1_other: q1Other,
+          q2_roi_criteria: q2,
+          q2_other: q2Other,
+          q2_example: q2Example,
+          q3_budget: q3,
+          q3_example: q3Example,
+          q4_business_process: q4,
+          q5_routine_tasks: q5,
+          q5_other: q5Other,
+          q5_example: q5Example,
+          q6_core_skills: q6,
+          q7_time_required: q7,
+          q8_cost_resources: q8
+        }]);
+
+      if (error) throw error;
+
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage('설문 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('Error submitting survey:', error);
+    }
   };
 
   if (!isOpen) return null;
@@ -68,6 +92,24 @@ export default function SurveyPage({ isOpen, onClose }: SurveyPageProps) {
             </button>
           </div>
 
+          {status === 'success' ? (
+            <div className="flex-1 flex items-center justify-center p-12">
+              <div className="text-center">
+                <CheckCircle className="w-20 h-20 text-green-600 mx-auto mb-6" />
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">제출 완료!</h3>
+                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                  설문에 응답해 주셔서 감사합니다.<br />
+                  담당자가 검토 후 빠른 시일 내에 연락드리겠습니다.
+                </p>
+                <button
+                  onClick={onClose}
+                  className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/30"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          ) : (
           <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-8">
             <div className="space-y-6">
               <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
@@ -391,22 +433,39 @@ export default function SurveyPage({ isOpen, onClose }: SurveyPageProps) {
               </div>
             </div>
 
+            {status === 'error' && (
+              <div className="flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg p-4">
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                <p className="text-sm">{errorMessage}</p>
+              </div>
+            )}
+
             <div className="flex gap-3 pt-6 border-t border-slate-200">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 py-3 px-6 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors"
+                disabled={status === 'loading'}
+                className="flex-1 py-3 px-6 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 취소
               </button>
               <button
                 type="submit"
-                className="flex-1 py-3 px-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+                disabled={status === 'loading'}
+                className="flex-1 py-3 px-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                제출하기
+                {status === 'loading' ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    제출 중...
+                  </>
+                ) : (
+                  '제출하기'
+                )}
               </button>
             </div>
           </form>
+          )}
         </div>
       </div>
     </>

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 interface InquiryData {
   name: string;
   company: string;
   position: string;
+  phone: string;
   email: string;
   message: string;
 }
@@ -14,6 +16,7 @@ export default function InquiryForm() {
     name: '',
     company: '',
     position: '',
+    phone: '',
     email: '',
     message: ''
   });
@@ -27,15 +30,26 @@ export default function InquiryForm() {
     setErrorMessage('');
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase
+        .from('inquiries')
+        .insert([{
+          name: formData.name,
+          company: formData.company || null,
+          position: formData.position || null,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message || null,
+          status: 'pending'
+        }]);
 
-      console.log('Form submitted:', formData);
+      if (error) throw error;
 
       setStatus('success');
       setFormData({
         name: '',
         company: '',
         position: '',
+        phone: '',
         email: '',
         message: ''
       });
@@ -116,6 +130,22 @@ export default function InquiryForm() {
             onChange={handleChange}
             className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
             placeholder="팀장, 대리 등"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
+            전화번호 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+            placeholder="010-1234-5678"
           />
         </div>
 
