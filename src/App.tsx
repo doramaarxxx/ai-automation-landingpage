@@ -6,14 +6,12 @@ import ComparisonSection from './components/ComparisonSection';
 import SuccessSection from './components/SuccessSection';
 import ContactSection from './components/ContactSection';
 import MeetingBookingPanel from './components/MeetingBookingPanel';
-import AuthModal from './components/AuthModal';
 import Header from './components/Header';
 import SurveyPage from './components/SurveyPage';
 
 function App() {
   const contactRef = useRef<HTMLDivElement>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSurveyOpen, setIsSurveyOpen] = useState(false);
 
   const scrollToContact = () => {
@@ -26,18 +24,6 @@ function App() {
 
   const closeBooking = () => {
     setIsBookingOpen(false);
-  };
-
-  const openAuthModal = () => {
-    setIsAuthModalOpen(true);
-  };
-
-  const closeAuthModal = () => {
-    setIsAuthModalOpen(false);
-  };
-
-  const handleAuthSuccess = () => {
-    setIsAuthModalOpen(false);
   };
 
   const openSurvey = () => {
@@ -65,13 +51,6 @@ function App() {
       <MeetingBookingPanel
         isOpen={isBookingOpen}
         onClose={closeBooking}
-        onAuthRequired={openAuthModal}
-      />
-
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={closeAuthModal}
-        onSuccess={handleAuthSuccess}
       />
 
       <SurveyPage isOpen={isSurveyOpen} onClose={closeSurvey} />
