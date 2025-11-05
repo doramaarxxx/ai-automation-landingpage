@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { X, CheckSquare, Square, CheckCircle, AlertCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 interface SurveyPageProps {
   isOpen: boolean;
@@ -39,26 +38,18 @@ export default function SurveyPage({ isOpen, onClose }: SurveyPageProps) {
     setErrorMessage('');
 
     try {
-      const { error } = await supabase
-        .from('survey_responses')
-        .insert([{
-          q1_reasons: q1,
-          q1_other: q1Other,
-          q2_roi_criteria: q2,
-          q2_other: q2Other,
-          q2_example: q2Example,
-          q3_budget: q3,
-          q3_example: q3Example,
-          q4_business_process: q4,
-          q5_routine_tasks: q5,
-          q5_other: q5Other,
-          q5_example: q5Example,
-          q6_core_skills: q6,
-          q7_time_required: q7,
-          q8_cost_resources: q8
-        }]);
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (error) throw error;
+      console.log('Survey submitted:', {
+        q1: [...q1, q1Other].filter(Boolean),
+        q2: { options: [...q2, q2Other].filter(Boolean), example: q2Example },
+        q3: { option: q3, example: q3Example },
+        q4,
+        q5: { options: [...q5, q5Other].filter(Boolean), example: q5Example },
+        q6,
+        q7,
+        q8,
+      });
 
       setStatus('success');
     } catch (error) {

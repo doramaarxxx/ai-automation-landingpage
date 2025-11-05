@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 interface InquiryData {
   name: string;
@@ -30,19 +29,9 @@ export default function InquiryForm() {
     setErrorMessage('');
 
     try {
-      const { error } = await supabase
-        .from('inquiries')
-        .insert([{
-          name: formData.name,
-          company: formData.company || null,
-          position: formData.position || null,
-          phone: formData.phone,
-          email: formData.email,
-          message: formData.message || null,
-          status: 'pending'
-        }]);
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (error) throw error;
+      console.log('Form submitted:', formData);
 
       setStatus('success');
       setFormData({
