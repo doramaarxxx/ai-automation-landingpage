@@ -21,28 +21,28 @@ export default function ProblemSection({ onCTAClick }: ProblemSectionProps) {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+    <section className="py-24 bg-muted/50">
+      <div className="container mx-auto px-6">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             이런 고민, 하고 계신가요?
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-muted-foreground">
             AI 활용, 배우는 것보다 실전이 어렵습니다
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
           {problems.map((problem, index) => (
             <div
               key={index}
-              className="bg-slate-50 border border-slate-200 rounded-xl p-8 hover:shadow-lg transition-shadow duration-200"
+              className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 transition-shadow hover:shadow-md"
             >
-              <AlertCircle className="w-12 h-12 text-slate-400 mb-4" />
-              <blockquote className="text-lg font-medium text-slate-900 mb-3 leading-relaxed">
+              <AlertCircle className="h-10 w-10 text-muted-foreground mb-4" />
+              <blockquote className="text-lg font-medium mb-3 leading-relaxed">
                 "{problem.quote}"
               </blockquote>
-              <p className="text-sm text-slate-500">— {problem.context}</p>
+              <p className="text-sm text-muted-foreground">— {problem.context}</p>
             </div>
           ))}
         </div>
@@ -50,10 +50,10 @@ export default function ProblemSection({ onCTAClick }: ProblemSectionProps) {
         <div className="text-center">
           <button
             onClick={onCTAClick}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-all duration-200 shadow-lg"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
             나에게 맞는 AI 적용법 진단받기
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>

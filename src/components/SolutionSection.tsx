@@ -26,48 +26,48 @@ export default function SolutionSection() {
   ];
 
   return (
-    <section id="solution" className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+    <section id="solution" className="py-24 bg-background">
+      <div className="container mx-auto px-6">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             3단계로 완성되는 AI 실전 적용
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-muted-foreground">
             진단부터 성과까지, 체계적인 프로세스로 확실한 결과를 만듭니다
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
               <div key={index} className="relative">
-                <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 h-full hover:shadow-md transition-shadow duration-200">
+                <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 h-full transition-shadow hover:shadow-md">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold text-xl">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground font-semibold">
                       {step.number}
                     </div>
-                    <Icon className="w-12 h-12 text-blue-500" />
+                    <Icon className="h-10 w-10 text-primary" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-xl font-semibold mb-3">
                     {step.title}
                   </h3>
 
-                  <p className="text-slate-600 mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
                     {step.description}
                   </p>
 
-                  <div className="pt-4 border-t border-slate-200">
-                    <div className="inline-flex items-center gap-2 text-sm font-medium text-blue-600">
-                      <Zap className="w-4 h-4" />
+                  <div className="pt-4 border-t">
+                    <div className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                      <Zap className="h-4 w-4" />
                       {step.result}
                     </div>
                   </div>
                 </div>
 
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-transparent"></div>
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-border"></div>
                 )}
               </div>
             );

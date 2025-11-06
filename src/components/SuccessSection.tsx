@@ -34,37 +34,37 @@ export default function SuccessSection() {
   const getColorClasses = (color: string) => {
     const colors = {
       blue: {
-        bg: 'bg-blue-50',
-        icon: 'text-blue-600',
-        badge: 'bg-blue-100 text-blue-700'
+        bg: 'bg-primary/10',
+        icon: 'text-primary',
+        badge: 'bg-primary/10 text-primary'
       },
       cyan: {
-        bg: 'bg-cyan-50',
-        icon: 'text-cyan-600',
-        badge: 'bg-cyan-100 text-cyan-700'
+        bg: 'bg-primary/10',
+        icon: 'text-primary',
+        badge: 'bg-primary/10 text-primary'
       },
       indigo: {
-        bg: 'bg-indigo-50',
-        icon: 'text-indigo-600',
-        badge: 'bg-indigo-100 text-indigo-700'
+        bg: 'bg-primary/10',
+        icon: 'text-primary',
+        badge: 'bg-primary/10 text-primary'
       }
     };
     return colors[color as keyof typeof colors];
   };
 
   return (
-    <section className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-6">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             실제 성과 사례
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-muted-foreground">
             이미 많은 기업과 실무자들이 성과를 경험했습니다
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {cases.map((item, index) => {
             const Icon = item.icon;
             const colors = getColorClasses(item.color);
@@ -72,35 +72,35 @@ export default function SuccessSection() {
             return (
               <div
                 key={index}
-                className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200"
+                className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 transition-shadow hover:shadow-md"
               >
-                <div className={`w-14 h-14 ${colors.bg} rounded-lg flex items-center justify-center mb-6`}>
-                  <Icon className={`w-7 h-7 ${colors.icon}`} />
+                <div className={`h-12 w-12 ${colors.bg} rounded-lg flex items-center justify-center mb-6`}>
+                  <Icon className={`h-6 w-6 ${colors.icon}`} />
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   {item.title}
                 </h3>
 
-                <p className="text-sm text-slate-500 mb-6">
+                <p className="text-sm text-muted-foreground mb-6">
                   {item.company}
                 </p>
 
                 <div className="space-y-4 mb-6">
                   <div>
-                    <div className="text-xs font-medium text-slate-500 mb-1">Before</div>
-                    <p className="text-sm text-slate-700">{item.before}</p>
+                    <div className="text-xs font-medium text-muted-foreground mb-1">Before</div>
+                    <p className="text-sm">{item.before}</p>
                   </div>
 
-                  <div className="h-px bg-slate-200"></div>
+                  <div className="h-px bg-border"></div>
 
                   <div>
-                    <div className="text-xs font-medium text-slate-500 mb-1">After</div>
-                    <p className="text-sm text-slate-700">{item.after}</p>
+                    <div className="text-xs font-medium text-muted-foreground mb-1">After</div>
+                    <p className="text-sm">{item.after}</p>
                   </div>
                 </div>
 
-                <div className={`inline-block px-4 py-2 ${colors.badge} rounded-full font-semibold text-sm`}>
+                <div className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${colors.badge}`}>
                   {item.result}
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default function SuccessSection() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-slate-600 italic">
+          <p className="text-sm text-muted-foreground italic">
             * 실제 컨설팅 결과를 바탕으로 작성되었습니다. 개별 성과는 업무 환경에 따라 달라질 수 있습니다.
           </p>
         </div>

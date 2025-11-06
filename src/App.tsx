@@ -55,12 +55,12 @@ function App() {
 
       <SurveyPage isOpen={isSurveyOpen} onClose={closeSurvey} />
 
-      <footer className="bg-slate-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="border-t bg-background py-12">
+        <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="font-bold text-lg mb-4">결과 중심 AI 컨설팅</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 비개발자를 위한 실전형 AI 트레이닝.<br />
                 배우는 것이 아닌, 성과를 만드는 AI 교육.
               </p>
@@ -68,7 +68,7 @@ function App() {
 
             <div>
               <h4 className="font-semibold mb-4">문의</h4>
-              <div className="space-y-2 text-sm text-slate-400">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 <p>이메일: contact@example.com</p>
                 <p>전화: 02-1234-5678</p>
                 <p>평일 오전 9시 ~ 오후 6시</p>
@@ -77,7 +77,7 @@ function App() {
 
             <div>
               <h4 className="font-semibold mb-4">프로그램</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>맞춤 진단 미팅</li>
                 <li>실행 플랜 제안</li>
                 <li>성과 확인 및 유지보수</li>
@@ -85,7 +85,7 @@ function App() {
             </div>
           </div>
 
-          <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-400">
+          <div className="border-t pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2025 AI Consulting. All rights reserved.</p>
           </div>
         </div>
